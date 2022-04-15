@@ -7,10 +7,10 @@ import { QuizLayout } from './features/QuizPage.js';
 
 export default function App() {
   return (
-    <Container maxWidth="sm">
+    <Container>
       <div className="body">
         <Typography variant="h4" component="h1" gutterBottom>
-          Kyle's Super Fancy Knowledge Quiz
+          Finger Spelling Demo
         </Typography>
         <QuizLayout/>
       </div>
