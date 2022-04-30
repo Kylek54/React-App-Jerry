@@ -4,13 +4,16 @@ import Grid from '@mui/material/Grid';
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Modal from '@mui/material/Modal';
+import react, { useEffect, useState } from "react";
+
+
 
 export function QuizLayout(){
 
         var questions = [
             { 
                 answerOptions: [
-                    { answer: "Laptop", isCorrect: false},
+                    { answer: "Laptop", isCorrect: false, src: "video/q1.mp4"},
                     { answer: "Lawyer", isCorrect: true},
                     { answer: "Lavender", isCorrect: false},
                     { answer: "Listen", isCorrect: false},
@@ -18,7 +21,7 @@ export function QuizLayout(){
             },
             { 
                 answerOptions: [
-                    { answer: "Love", isCorrect: false},
+                    { answer: "Love", isCorrect: false, src: "video/q2.mp4"},
                     { answer: "Like", isCorrect: false},
                     { answer: "Lisa", isCorrect: true},
                     { answer: "Lose", isCorrect: false},
@@ -26,7 +29,7 @@ export function QuizLayout(){
             },
             { 
                 answerOptions: [
-                    { answer: "Champion", isCorrect: false},
+                    { answer: "Champion", isCorrect: false, src: "video/q3.mp4"},
                     { answer: "Capital", isCorrect: false},
                     { answer: "Chicago", isCorrect: true},
                     { answer: "Colors", isCorrect: false},
@@ -34,7 +37,7 @@ export function QuizLayout(){
             },
             { 
                 answerOptions: [
-                    { answer: "Boxes", isCorrect: false},
+                    { answer: "Boxes", isCorrect: false, src: "video/q4.mp4"},
                     { answer: "Banana", isCorrect: true},
                     { answer: "Bootstrap", isCorrect: false},
                     { answer: "Balance", isCorrect: false},
@@ -42,33 +45,34 @@ export function QuizLayout(){
             },
         ]
 
-        var questionNumber = 0
+        const [questionNumber, setQuestionNumber] = useState(0);
 
-        function answerCheck(isCorrect,questionNumber){
+        function answerCheck(isCorrect, questionNumber){
 
             if (isCorrect === true){
                 alert("correct")
+                if (questionNumber >= 3){
+                    questionNumber = -1;
+                }
+                return setQuestionNumber(questionNumber + 1);
             }
-
-            else(isCorrect === false);{
+            else{
                 alert("incorrect")
             }
 
-            if (isCorrect === true){
-                questionNumber += 1
-            }
 
+            return questionNumber
         };
 
     return (
+
         <div>
-            <span>Correct Answers = </span> 
 
-            <Grid container spacing={2}>
+            <Grid>
                 <Grid item>
-                    <video loop autoPlay>
-                        <source 
-
+                    <video class="h-1/2" loop autoPlay muted playsInline key={questions[questionNumber]['answerOptions'][0]['src']}>
+                        <source
+                            src={questions[questionNumber]['answerOptions'][0]['src']}
                             type="video/mp4"
                         />
                         Your browser does not support the video tag.
@@ -77,29 +81,26 @@ export function QuizLayout(){
                 </Grid>
                 <Grid class="flex items-center justify-center w-full flex-wrap">
 
-                    
-                    <Button class="bg-green-400 p-16 border-2 rounded w-1/2"
+                    <Button class="bg-green-400 p-12 border-2 rounded w-1/2"
                         variant="contained"
-                        onClick={() => answerCheck(questions[questionNumber].answerOptions.isCorrect[0])}
-                        >{questions[questionNumber].answerOptions.answer[0]}</Button>
-                    <Button class="bg-green-400 p-16  border-2 rounded w-1/2"
+                        onClick={() => answerCheck(questions[questionNumber]['answerOptions'][0]['isCorrect'], questionNumber)}
+                        >{questions[questionNumber]['answerOptions'][0]['answer']}</Button>
+                    <Button class="bg-green-400 p-12  border-2 rounded w-1/2"
                         variant="contained"
-                        onClick={() => answerCheck(questions[questionNumber].answerOptions.isCorrect[1])}
-                        >{questions[questionNumber].answerOptions.answer[1]}</Button>
-                    <Button class="bg-green-400 p-16  border-2 rounded w-1/2"
+                        onClick={() => answerCheck(questions[questionNumber]['answerOptions'][1]['isCorrect'], questionNumber)}
+                        >{questions[questionNumber]['answerOptions'][1]['answer']}</Button>
+                    <Button class="bg-green-400 p-12  border-2 rounded w-1/2"
                         variant="contained"
-                        onClick={() => answerCheck(questions[questionNumber].answerOptions.isCorrect[2])} 
-                        >{questions[questionNumber].answerOptions.answer[2]}</Button>
-                    <Button class="bg-green-400 p-16  border-2 rounded w-1/2"
+                        onClick={() => answerCheck(questions[questionNumber]['answerOptions'][2]['isCorrect'], questionNumber)} 
+                        >{questions[questionNumber]['answerOptions'][2]['answer']}</Button>
+                    <Button class="bg-green-400 p-12  border-2 rounded w-1/2"
                         variant="contained"
-                        onClick={() => answerCheck(questions[questionNumber].answerOptions.isCorrect[3])}
-                        >{questions[questionNumber].answerOptions.answer[3]}</Button>
+                        onClick={() => answerCheck(questions[questionNumber]['answerOptions'][3]['isCorrect'], questionNumber)}
+                        >{questions[questionNumber]['answerOptions'][3]['answer']}</Button>
 
 
                 </Grid>
             </Grid>
         </div>
-
-        
     )
 }
